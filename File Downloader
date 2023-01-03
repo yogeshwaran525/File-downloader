@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Social Media Icons -->
+    <script src="https://kit.fontawesome.com/6a6ad32422.js" crossorigin="anonymous"></script>
+    <title>Any url Downloader</title>
+    <style>
+        *{
+            margin: 0%;
+            padding: 0%;
+        }
+        body{
+            background-color: #b5f1fc;
+            box-sizing: border-box;
+            height: 90vh;
+        }
+        /* Hide scroll bars chrome,safari,opera */
+        body::-webkit-scrollbar { display: none;
+        }
+        /* Hide scroll bars in firefox */
+        body {
+            scrollbar-width: none;
+        }
+        body::-webkit-slider-thumb {
+            background: #FF000000;
+        }
+        h1{
+            text-align: center;
+            background-color:khaki;
+            margin: 0 auto;
+            height: 30px;
+            padding: 9px;
+            box-shadow: 2px 2px 2px #000000ee;
+        }
+        p{
+            text-align: center;
+            font-size: 1.4rem;     
+            margin: 1% auto;
+        }
+        #para1{
+            font-size: 1.3rem;
+        }
+        #form{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2% auto;
+            width: 100vw;
+        }
+        #url{
+            width: 400px;
+            height: 50px;
+            border: 2px solid #020202;
+            border-radius: 7px 0px 0px 7px;
+            box-shadow: 2px 2px 3px #b31ae27e;
+        }
+        #url::placeholder{
+            color: rgb(20, 181, 230);
+            font-size: 1rem;
+            text-align: center;
+        }
+        #btn{
+            width: 100px;
+            height: 54px;
+            background: #020202;
+            color: #ffffff;
+            font-size: 1rem;
+            border-radius: 0px 7px 7px 0px;
+            box-shadow: 2px 2px 3px #b31ae27e;
+        }
+        #btn:hover{
+            cursor: pointer; color: #0088ff; background: #ffffff;
+        }
+        /* Footer Section --Starts */
+        footer { background-color: blue;
+            margin: 62vh auto;
+            width: 100vw;
+            position: relative;
+        }
+        #footer-container {
+           margin: 0% auto;}
+        #footertop {
+            display: flex; justify-content: space-evenly;}
+        #footertext { text-align: center; font-size: 1.3rem;
+            text-transform: capitalize;}
+        #footercopyrighticon:hover{color: #f00874;}
+        .foootersocialicons {  display: flex; justify-content: center;}
+        .foootersocialicons i { font-size: 23px; color: #090a0f;
+            margin-left: 5px;}
+        .foootersocialicons i:hover {color: #f00874;}
+        /* Footer Section --Ends */
+        /* Responsive sections */
+        @media screen and (max-width: 320px){
+            h1{padding: 10px auto; font-size: 1.5rem;}
+            #url{width: 310px;
+            height: 40px;}
+            #btn{width: 90px;
+            height: 45px;
+            font-size: 13px; }
+            #footertext { font-size: 1rem;}
+        }
+        @media screen and (max-width: 425px){
+            footer { margin: 70vh auto;}
+        } 
+        @media screen and (max-width: 375px){
+            #footertext { font-size: 15px;}
+        }   
+        @media screen and (max-width: 768px){
+            h1{font-size: 1.2rem;}
+        }
+      
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FILE DOWNLOADER</h1>
+        <p>Paste url here to Download</p>
+        <p id="para1">Images,Video,Files</p>
+    </header>
+    <form action="#" id="form" method="post">
+        <input type="url" id="url" placeholder="Paste Url here" required>
+        <input type="button" id="btn" value="Download">
+    </form>
+    <footer>
+        <div id="footer-container">
+            <div id="footertop">
+                <div id="footertext">Design And developed by Yogeshwaran &nbsp;P&nbsp;
+                    <span id="footercopyrighticon"><i class="fa-regular fa-copyright"></i></span>
+                </div>
+            </div>
+            <div class="foootersocialicons">
+                <a href="https://www.linkedin.com/in/yogesh-waran-a280b2128/" target="_blank"><i
+                        class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/yogeshwaran525" target="_blank"><i
+                        class="fa-brands fa-square-github"></i></a>
+                <a href="https://www.instagram.com/_yogesh_y/" target="_blank"><i
+                        class="fa-brands fa-square-instagram"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100009152763287" target="_blank"><i
+                        class="fa-brands fa-square-facebook"></i></a>
+            </div>
+        </div>        
+    </footer>
+
+
+    <script>
+        let input = document.querySelector("#url");
+        let btn = document.querySelector("#btn");
+        // Get the search bar input link and store in unout url
+        btn.addEventListener("click", e => {
+            e.preventDefault();
+            let inputurl = input.value;
+            fetchFile(inputurl);
+        })
+        // fetch the inputurl value and blob to download tempurl in New File Dowbload name
+        function fetchFile(inputurl){
+            fetch(inputurl).then(res => res.blob()).then(file =>{
+               let tempurl = URL.createObjectURL(file);
+               let aTag = document.createElement("a");
+               aTag.href = tempurl;
+               aTag.download = "New File Download";
+               document.body.appendChild(aTag);
+               aTag.click();
+               aTag.remove();
+            })
+        }
